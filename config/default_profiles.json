@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "name": "WASD + Space",
+      "description": "Layout estándar WASD para Player 1",
+      "mappings": {
+        "0x57": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_UP" },
+        "0x41": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_LEFT" },
+        "0x53": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_DOWN" },
+        "0x44": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_RIGHT" },
+        "0x20": { "type": "button", "target": "XUSB_GAMEPAD_A" },
+        "0x4A": { "type": "button", "target": "XUSB_GAMEPAD_B" },
+        "0x4B": { "type": "button", "target": "XUSB_GAMEPAD_X" },
+        "0x4C": { "type": "button", "target": "XUSB_GAMEPAD_Y" }
+      }
+    },
+    {
+      "name": "Arrow Keys",
+      "description": "Flechas direccionales para Player 2",
+      "mappings": {
+        "0x26": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_UP" },
+        "0x25": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_LEFT" },
+        "0x28": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_DOWN" },
+        "0x27": { "type": "button", "target": "XUSB_GAMEPAD_DPAD_RIGHT" },
+        "0x10": { "type": "button", "target": "XUSB_GAMEPAD_A" },
+        "0x11": { "type": "button", "target": "XUSB_GAMEPAD_B" }
+      }
+    }
+  ]
+}

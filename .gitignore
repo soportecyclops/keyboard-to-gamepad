@@ -1,0 +1,31 @@
+# Build
+build/
+out/
+cmake-build-*/
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj*
+
+# IDE
+.idea/
+.vscode/
+*.user
+
+# Binarios
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+
+# Logs
+*.log
+
+# ViGEm MSI (no distribuir)
+installer/vigem/*.msi
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Configure CMake
+      run: cmake -B build -S . -A x64 -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: KeyboardToGamepad-Windows
+        path: build/bin/Release/*.exe
+
+    - name: Build Installer
+      if: startsWith(github.ref, 'refs/tags/')
+      run: cmake --build build --config Release --target package_installer
+
+    - name: Upload Installer
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-artifact@v4
+      with:
+        name: KeyboardToGamepad-Installer
+        path: build/Setup_KeyboardToGamepad_*.exe

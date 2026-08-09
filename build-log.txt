@@ -1,0 +1,6 @@
+
+[18:52:50] ========================================
+[18:52:50]   KeyboardToGamepad - Build
+[18:52:50] ========================================
+[18:52:50] ERROR: No se encontro vcvarsall.bat
+[18:52:50] Verifica que tengas instalado 'Desktop development with C++' en VS2022
