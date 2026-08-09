@@ -2,10 +2,10 @@ name: Build
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, master, develop]
     tags: ['v*']
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 jobs:
   build-windows:
@@ -14,10 +14,44 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        submodules: recursive
+        submodules: false  # No usar submodules, clonamos manualmente
 
     - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    - name: Clone dependencies
+      shell: pwsh
+      run: |
+        # Crear directorio deps si no existe
+        New-Item -ItemType Directory -Path deps -Force | Out-Null
+
+        # Clonar Dear ImGui (docking branch)
+        if (-not (Test-Path "deps/imgui/imgui.cpp")) {
+          Write-Host "Cloning Dear ImGui..."
+          git clone --branch docking --depth 1 https://github.com/ocornut/imgui.git deps/imgui
+        }
+
+        # Clonar nlohmann/json
+        if (-not (Test-Path "deps/nlohmann_json/include/nlohmann/json.hpp")) {
+          Write-Host "Cloning nlohmann/json..."
+          git clone --branch develop --depth 1 https://github.com/nlohmann/json.git deps/nlohmann_json
+        }
+
+        # Clonar spdlog
+        if (-not (Test-Path "deps/spdlog/include/spdlog/spdlog.h")) {
+          Write-Host "Cloning spdlog..."
+          git clone --branch v1.x --depth 1 https://github.com/gabime/spdlog.git deps/spdlog
+        }
+
+        # Clonar ViGEmClient
+        if (-not (Test-Path "deps/vigem-client/include/ViGEm/Client.h")) {
+          Write-Host "Cloning ViGEmClient..."
+          git clone --depth 1 https://github.com/nefarius/ViGEmClient.git deps/vigem-client
+        }
+
+        Write-Host "All dependencies ready."
 
     - name: Configure CMake
       run: cmake -B build -S . -A x64 -DCMAKE_BUILD_TYPE=Release
